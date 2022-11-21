@@ -31,8 +31,7 @@ namespace tomfox {
         using type = ScoketType;
 
         template<class... Args>
-        explicit http_server_(Args &&...args)
-                : io_service_pool_(std::forward<Args>(args)...) {
+        explicit http_server_(Args &&...args): io_service_pool_(std::forward<Args>(args)...) {
             http_cache::get().set_cache_max_age(86400);
             init_conn_callback();
         }
