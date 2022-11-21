@@ -31,6 +31,7 @@
 #include <type_traits>
 
 namespace tomfox {
+
     struct ci_less {
         // case-independent (ci) compare_less binary function
         struct nocase_compare {

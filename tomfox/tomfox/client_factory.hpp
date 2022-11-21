@@ -1,5 +1,8 @@
 #pragma once
 
+// hpp，Header plus plus的缩写，实质是将.cpp的实现代码混入. h头文件，即声明与定义（实现）都包含在同一个文件中。
+// 该类的调用者只需要include该hpp文件即可，无需再将cpp加入到project中进行编译。 实现代码将直接编译到调用者
+// 的obj文件中，不再生成单独的obj。
 #include "http_client.hpp"
 
 namespace tomfox {

@@ -159,6 +159,7 @@ struct phr_chunked_decoder {
     toklen = buf - tok_start;                                                  \
   } while (0)
 
+
 static const char *token_char_map =
         "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
         "\0\1\0\1\1\1\1\1\0\0\1\1\0\1\1\0\1\1\1\1\1\1\1\1\1\1\0\0\0\0\0\0"
