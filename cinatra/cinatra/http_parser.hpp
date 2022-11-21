@@ -7,7 +7,7 @@
 
 using namespace std::string_view_literals;
 
-namespace cinatra {
+namespace tomfox {
 class http_parser {
 public:
   int parse_response(const char *data, size_t size, int last_len) {
@@ -112,4 +112,4 @@ private:
   int body_len_ = 0;
   struct phr_header headers_[100];
 };
-} // namespace cinatra
+} // namespace tomfox

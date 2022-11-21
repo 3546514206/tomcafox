@@ -2,7 +2,7 @@
 #include "utils.hpp"
 #include <string>
 
-namespace cinatra::smtp {
+namespace tomfox::smtp {
 struct email_server {
   std::string server;
   std::string port;
@@ -19,7 +19,7 @@ struct email_data {
 
 template <typename T> class client {
 public:
-  static constexpr bool IS_SSL = std::is_same_v<T, cinatra::SSL>;
+  static constexpr bool IS_SSL = std::is_same_v<T, tomfox::SSL>;
   client(boost::asio::io_service &io_service)
       : io_context_(io_service), socket_(io_service), resolver_(io_service) {}
 
@@ -119,8 +119,8 @@ private:
   }
 
   void build_smtp_content(std::ostream &out) {
-    out << "Content-Type: multipart/mixed; boundary=\"cinatra\"\r\n\r\n";
-    out << "--cinatra\r\nContent-Type: text/plain;\r\n\r\n";
+    out << "Content-Type: multipart/mixed; boundary=\"tomfox\"\r\n\r\n";
+    out << "--tomfox\r\nContent-Type: text/plain;\r\n\r\n";
     out << data_.text << "\r\n\r\n";
   }
 
@@ -131,7 +131,7 @@ private:
 
     std::string filename =
         std::filesystem::path(data_.filepath).filename().string();
-    out << "--cinatra\r\nContent-Type: application/octet-stream; name=\""
+    out << "--tomfox\r\nContent-Type: application/octet-stream; name=\""
         << filename << "\"\r\n";
     out << "Content-Transfer-Encoding: base64\r\n";
     out << "Content-Disposition: attachment; filename=\"" << filename
@@ -173,7 +173,7 @@ private:
     build_smtp_content(out);
     build_smtp_file(out);
 
-    out << "--cinatra--\r\n";
+    out << "--tomfox--\r\n";
     out << ".\r\n";
   }
 
@@ -210,4 +210,4 @@ static inline auto get_smtp_client(boost::asio::io_service &io_service) {
   return smtp::client<T>(io_service);
 }
 
-} // namespace cinatra::smtp
+} // namespace tomfox::smtp

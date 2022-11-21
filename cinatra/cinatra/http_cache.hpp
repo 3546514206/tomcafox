@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-namespace cinatra {
+namespace tomfox {
 constexpr const size_t MAX_CACHE_SIZE = 100000;
 
 class http_cache {
@@ -90,4 +90,4 @@ private:
   std::time_t max_cache_age_ = 0;
   std::unordered_map<std::string, std::time_t> cache_time_;
 };
-} // namespace cinatra
+} // namespace tomfox

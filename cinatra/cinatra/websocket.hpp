@@ -4,7 +4,7 @@
 #include "utils.hpp"
 #include "ws_define.h"
 
-namespace cinatra {
+namespace tomfox {
 class websocket {
 public:
   bool is_upgrade(const request &req) {
@@ -249,4 +249,4 @@ private:
   char msg_header_[10];
 };
 
-} // namespace cinatra
+} // namespace tomfox

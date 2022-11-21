@@ -22,7 +22,7 @@
 #endif
 #endif
 
-namespace cinatra {
+namespace tomfox {
 struct response_data {
   boost::system::error_code ec;
   int status;
@@ -1169,4 +1169,4 @@ private:
   std::weak_ptr<std::promise<response_data>> weak_;
   bool sync_ = false;
 };
-} // namespace cinatra
+} // namespace tomfox

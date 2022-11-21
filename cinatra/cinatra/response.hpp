@@ -15,7 +15,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-namespace cinatra {
+namespace tomfox {
 class response {
 public:
   response() {}
@@ -97,7 +97,7 @@ public:
     if (res_type_ != req_content_type::none) {
       rep_str_.append(get_content_type(res_type_));
     }
-    rep_str_.append("Server: cinatra\r\n");
+    rep_str_.append("Server: tomfox\r\n");
     if (session_ != nullptr && session_->is_need_update()) {
       auto cookie_str = session_->get_cookie().to_string();
       rep_str_.append("Set-Cookie: ").append(cookie_str).append("\r\n");
@@ -114,7 +114,7 @@ public:
 
   std::vector<boost::asio::const_buffer> to_buffers() {
     std::vector<boost::asio::const_buffer> buffers;
-    add_header("Host", "cinatra");
+    add_header("Host", "tomfox");
     if (session_ != nullptr && session_->is_need_update()) {
       auto cookie_str = session_->get_cookie().to_string();
       add_header("Set-Cookie", cookie_str.c_str());
@@ -196,15 +196,15 @@ public:
 
   std::string_view get_content_type(req_content_type type) {
     switch (type) {
-    case cinatra::req_content_type::html:
+    case tomfox::req_content_type::html:
       return rep_html;
-    case cinatra::req_content_type::json:
+    case tomfox::req_content_type::json:
       return rep_json;
-    case cinatra::req_content_type::string:
+    case tomfox::req_content_type::string:
       return rep_string;
-    case cinatra::req_content_type::multipart:
+    case tomfox::req_content_type::multipart:
       return rep_multipart;
-    case cinatra::req_content_type::none:
+    case tomfox::req_content_type::none:
     default:
       return "";
     }
@@ -265,7 +265,7 @@ public:
     return buffers;
   }
 
-  std::shared_ptr<cinatra::session>
+  std::shared_ptr<tomfox::session>
   start_session(const std::string &name, std::time_t expire = -1,
                 std::string_view domain = "", const std::string &path = "/") {
     session_ =
@@ -273,7 +273,7 @@ public:
     return session_;
   }
 
-  std::shared_ptr<cinatra::session> start_session() {
+  std::shared_ptr<tomfox::session> start_session() {
     if (domain_.empty()) {
       auto host = get_header_value("host");
       if (!host.empty()) {
@@ -328,7 +328,7 @@ public:
     set_status_and_content(status_type::temporary_redirect);
   }
 
-  void set_session(std::weak_ptr<cinatra::session> sessionref) {
+  void set_session(std::weak_ptr<tomfox::session> sessionref) {
     if (sessionref.lock()) {
       session_ = sessionref.lock();
     }
@@ -361,7 +361,7 @@ private:
   std::pair<phr_header *, size_t> req_headers_;
   std::string_view domain_;
   std::string_view path_;
-  std::shared_ptr<cinatra::session> session_ = nullptr;
+  std::shared_ptr<tomfox::session> session_ = nullptr;
   std::string rep_str_;
   std::chrono::system_clock::time_point last_time_ =
       std::chrono::system_clock::now();
@@ -369,5 +369,5 @@ private:
   req_content_type res_type_;
   bool need_response_time_ = false;
 };
-} // namespace cinatra
+} // namespace tomfox
 #endif // CINATRA_RESPONSE_HPP

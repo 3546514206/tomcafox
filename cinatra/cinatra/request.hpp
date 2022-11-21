@@ -14,7 +14,7 @@
 #include "session_manager.hpp"
 #include "upload_file.hpp"
 #include "url_encode_decode.hpp"
-namespace cinatra {
+namespace tomfox {
 enum class data_proc_state : int8_t {
   data_begin,
   data_continue,
@@ -40,8 +40,8 @@ public:
   void set_conn(conn_type conn) { conn_ = std::move(conn); }
 
   template <typename T> connection<T> *get_raw_conn() {
-    static_assert(std::is_same_v<T, cinatra::SSL> ||
-                      std::is_same_v<T, cinatra::NonSSL>,
+    static_assert(std::is_same_v<T, tomfox::SSL> ||
+                  std::is_same_v<T, tomfox::NonSSL>,
                   "invalid socket type, must be SSL or NonSSL");
     if (conn_.expired())
       return nullptr;
@@ -54,8 +54,8 @@ public:
   }
 
   template <typename T> std::shared_ptr<connection<T>> get_conn() {
-    static_assert(std::is_same_v<T, cinatra::SSL> ||
-                      std::is_same_v<T, cinatra::NonSSL>,
+    static_assert(std::is_same_v<T, tomfox::SSL> ||
+                  std::is_same_v<T, tomfox::NonSSL>,
                   "invalid socket type, must be SSL or NonSSL");
     if (conn_.expired())
       return nullptr;
@@ -882,4 +882,4 @@ private:
   std::array<event_call_back, (size_t)data_proc_state::data_error + 1>
       event_call_backs_ = {};
 };
-} // namespace cinatra
+} // namespace tomfox

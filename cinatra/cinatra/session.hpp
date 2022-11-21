@@ -12,7 +12,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
-namespace cinatra {
+namespace tomfox {
 
 class session {
 public:
@@ -63,7 +63,7 @@ public:
 
   void remove() { set_max_age(0); }
 
-  cinatra::cookie &get_cookie() { return cookie_; }
+  tomfox::cookie &get_cookie() { return cookie_; }
 
   std::time_t time_stamp() { return time_stamp_; }
 
@@ -88,4 +88,4 @@ private:
   cookie cookie_;
   bool is_update_ = true;
 };
-} // namespace cinatra
+} // namespace tomfox

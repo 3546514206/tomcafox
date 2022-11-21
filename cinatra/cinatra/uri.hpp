@@ -3,7 +3,7 @@
 #include <cctype>
 #include <string_view>
 
-namespace cinatra {
+namespace tomfox {
 // most of this code is from cpprestsdk
 class uri_t {
 public:
@@ -297,4 +297,4 @@ struct context {
       : host(u.get_host()), port(u.get_port()), path(u.get_path()),
         query(u.get_query()), method(mthd), body(std::move(b)) {}
 };
-} // namespace cinatra
+} // namespace tomfox

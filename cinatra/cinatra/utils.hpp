@@ -25,7 +25,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace cinatra {
+namespace tomfox {
 struct ci_less {
   // case-independent (ci) compare_less binary function
   struct nocase_compare {
@@ -216,28 +216,28 @@ enum class transfer_type { CHUNKED, ACCEPT_RANGES };
 
 inline constexpr std::string_view method_name(http_method mthd) {
   switch (mthd) {
-  case cinatra::http_method::DEL:
+  case tomfox::http_method::DEL:
     return "DELETE"sv;
     break;
-  case cinatra::http_method::GET:
+  case tomfox::http_method::GET:
     return "GET"sv;
     break;
-  case cinatra::http_method::HEAD:
+  case tomfox::http_method::HEAD:
     return "HEAD"sv;
     break;
-  case cinatra::http_method::POST:
+  case tomfox::http_method::POST:
     return "POST"sv;
     break;
-  case cinatra::http_method::PUT:
+  case tomfox::http_method::PUT:
     return "PUT"sv;
     break;
-  case cinatra::http_method::CONNECT:
+  case tomfox::http_method::CONNECT:
     return "CONNECT"sv;
     break;
-  case cinatra::http_method::OPTIONS:
+  case tomfox::http_method::OPTIONS:
     return "OPTIONS"sv;
     break;
-  case cinatra::http_method::TRACE:
+  case tomfox::http_method::TRACE:
     return "TRACE"sv;
     break;
   default:
@@ -816,6 +816,6 @@ template <typename T> struct filter_helper {
 template <typename T, typename... Args> inline auto filter(Args &&...args) {
   return filter_helper<T>::func(std::forward<Args>(args)...);
 }
-} // namespace cinatra
+} // namespace tomfox
 
 #endif // CINATRA_UTILS_HPP

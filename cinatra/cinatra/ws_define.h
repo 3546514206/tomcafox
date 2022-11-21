@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace cinatra {
+namespace tomfox {
 using namespace std::string_view_literals;
 
 #if defined(_WIN32)
@@ -194,4 +194,4 @@ enum ws_send_state {
 inline constexpr const std::string_view WEBSOCKET = "websocket"sv;
 inline constexpr const std::string_view UPGRADE = "upgrade"sv;
 inline constexpr const char ws_guid[] = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-} // namespace cinatra
+} // namespace tomfox

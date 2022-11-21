@@ -6,7 +6,7 @@
 #define CINATRA_SESSION_UTILS_HPP
 #include "request.hpp"
 #include "session.hpp"
-namespace cinatra {
+namespace tomfox {
 class session_manager {
 public:
   static session_manager &get() {
@@ -86,5 +86,5 @@ private:
   int max_age_ = 0;
   std::atomic_int64_t id_ = 0;
 };
-} // namespace cinatra
+} // namespace tomfox
 #endif // CINATRA_SESSION_UTILS_HPP

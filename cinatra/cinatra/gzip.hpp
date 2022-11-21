@@ -1,7 +1,7 @@
 #pragma once
 #include <string_view>
 #include <zlib.h>
-namespace cinatra::gzip_codec {
+namespace tomfox::gzip_codec {
 // from https://github.com/chafey/GZipCodec
 
 #define CHUNK 16384
@@ -139,4 +139,4 @@ inline int uncompress_file(const char *src_file, const char *out_file_name) {
 
   return 0;
 }
-} // namespace cinatra::gzip_codec
+} // namespace tomfox::gzip_codec

@@ -2,7 +2,7 @@
 #include "utils.hpp"
 #include <fstream>
 #include <string>
-namespace cinatra {
+namespace tomfox {
 class upload_file {
 public:
   void write(const char *data, size_t size) {
@@ -79,7 +79,7 @@ public:
 
 private:
   void check_and_create_directory(const std::string &direcotry_path) const {
-    auto vec = cinatra::split(
+    auto vec = tomfox::split(
         std::string_view(direcotry_path.data(), direcotry_path.size()), "/");
     std::string tmp_directory = "";
     for (auto iter = vec.begin(); iter != vec.end(); ++iter) {
@@ -100,4 +100,4 @@ private:
   std::ofstream file_;
   size_t file_size_ = 0;
 };
-} // namespace cinatra
+} // namespace tomfox

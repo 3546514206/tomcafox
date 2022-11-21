@@ -5,7 +5,7 @@
 #include <thread>
 #include <vector>
 
-namespace cinatra {
+namespace tomfox {
 class io_service_pool : private noncopyable {
 public:
   explicit io_service_pool(std::size_t pool_size) : next_io_service_(0) {
@@ -92,4 +92,4 @@ private:
   io_service_ptr io_services_;
   work_ptr work_;
 };
-} // namespace cinatra
+} // namespace tomfox

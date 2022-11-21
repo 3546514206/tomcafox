@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-namespace cinatra {
+namespace tomfox {
 using multipart_headers = std::multimap<std::string, std::string>;
 
 class multipart_reader {
@@ -130,5 +130,5 @@ private:
   std::string currentHeaderName, currentHeaderValue;
   void *userData;
 };
-} // namespace cinatra
+} // namespace tomfox
 #endif /* _MULTIPART_READER_H_ */

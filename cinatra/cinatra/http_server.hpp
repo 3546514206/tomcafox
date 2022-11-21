@@ -14,7 +14,7 @@
 #include "session_manager.hpp"
 #include "url_encode_decode.hpp"
 
-namespace cinatra {
+namespace tomfox {
 
 // cache
 template <typename T> struct enable_cache {
@@ -303,7 +303,7 @@ private:
 
           auto state = req.get_state();
           switch (state) {
-          case cinatra::data_proc_state::data_begin: {
+          case tomfox::data_proc_state::data_begin: {
             std::string relative_file_name = req.get_relative_filename();
             std::string fullpath =static_dir_+fs::u8path(relative_file_name).string();
 
@@ -346,24 +346,24 @@ private:
                   req, mime, fs::path(relative_file_name).filename().string(),
                   std::to_string(fs::file_size(fullpath)));
           } break;
-          case cinatra::data_proc_state::data_continue: {
+          case tomfox::data_proc_state::data_continue: {
             if (transfer_type_ == transfer_type::CHUNKED)
               write_chunked_body(req);
             else
               write_ranges_data(req);
           } break;
-          case cinatra::data_proc_state::data_end: {
+          case tomfox::data_proc_state::data_end: {
             auto conn = req.get_conn<ScoketType>();
             if (!conn->get_keep_alive())
               conn->on_close();
           } break;
-          case cinatra::data_proc_state::data_all_end: {
+          case tomfox::data_proc_state::data_all_end: {
             // network error
           } break;
-          case cinatra::data_proc_state::data_close: {
+          case tomfox::data_proc_state::data_close: {
             // network error
           } break;
-          case cinatra::data_proc_state::data_error: {
+          case tomfox::data_proc_state::data_error: {
             // network error
           } break;
           }
@@ -570,4 +570,4 @@ using http_server_proxy = http_server_<T, io_service_pool>;
 
 using http_server = http_server_proxy<NonSSL>;
 using http_ssl_server = http_server_proxy<SSL>;
-} // namespace cinatra
+} // namespace tomfox

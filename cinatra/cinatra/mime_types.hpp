@@ -2,7 +2,7 @@
 #include <map>
 #include <string_view>
 
-namespace cinatra {
+namespace tomfox {
 static const std::map<std::string_view, std::string_view, ci_less> mime_map = {
     {".323", "text/h323"},
     {".3gp", "video/3gpp"},
@@ -494,11 +494,11 @@ static const std::map<std::string_view, std::string_view, ci_less> mime_map = {
     {".7z", "application/x-7z-compressed"},
 };
 
-static std::map<cinatra::req_content_type, std::string_view> res_mime_map = {
-    {cinatra::req_content_type::html, "text/html; charset=UTF-8"},
-    {cinatra::req_content_type::json, "application/json; charset=UTF-8"},
-    {cinatra::req_content_type::string, "text/plain; charset=UTF-8"},
-    {cinatra::req_content_type::multipart, "multipart/form-data; boundary="}};
+static std::map<tomfox::req_content_type, std::string_view> res_mime_map = {
+    {tomfox::req_content_type::html,      "text/html; charset=UTF-8"},
+    {tomfox::req_content_type::json,      "application/json; charset=UTF-8"},
+    {tomfox::req_content_type::string,    "text/plain; charset=UTF-8"},
+    {tomfox::req_content_type::multipart, "multipart/form-data; boundary="}};
 
 inline std::string_view get_mime_type(std::string_view extension) {
   auto it = mime_map.find(std::string(extension.data(), extension.size()));
@@ -508,4 +508,4 @@ inline std::string_view get_mime_type(std::string_view extension) {
 
   return it->second;
 }
-} // namespace cinatra
+} // namespace tomfox

@@ -3,7 +3,7 @@
 #include <array>
 #include <string_view>
 
-namespace cinatra {
+namespace tomfox {
 constexpr const static size_t MAX_RESPONSE_SIZE = 1024 * 1024 * 10;
 class response_parser {
 public:
@@ -207,4 +207,4 @@ private:
   std::vector<char> buf_;
   std::vector<std::pair<std::string, std::string>> copy_headers_;
 };
-} // namespace cinatra
+} // namespace tomfox

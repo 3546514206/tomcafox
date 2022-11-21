@@ -10,7 +10,7 @@
 #include <mutex>
 #include <vector>
 
-namespace cinatra {
+namespace tomfox {
 using http_handler = std::function<void(request &, response &)>;
 using send_ok_handler = std::function<void()>;
 using send_failed_handler =
@@ -417,21 +417,21 @@ private:
     req_.set_http_type(type);
     if (req_.has_body()) {
       switch (type) {
-      case cinatra::content_type::string:
-      case cinatra::content_type::websocket:
-      case cinatra::content_type::unknown:
+      case tomfox::content_type::string:
+      case tomfox::content_type::websocket:
+      case tomfox::content_type::unknown:
         handle_string_body(bytes_transferred);
         break;
-      case cinatra::content_type::multipart:
+      case tomfox::content_type::multipart:
         handle_multipart();
         break;
-      case cinatra::content_type::octet_stream:
+      case tomfox::content_type::octet_stream:
         handle_octet_stream(bytes_transferred);
         break;
-      case cinatra::content_type::urlencoded:
+      case tomfox::content_type::urlencoded:
         handle_form_urlencoded(bytes_transferred);
         break;
-      case cinatra::content_type::chunked:
+      case tomfox::content_type::chunked:
         handle_chunked(bytes_transferred);
         break;
       }
@@ -1150,14 +1150,14 @@ private:
 
   bool handle_ws_frame(ws_frame_type ret, std::string &&payload, size_t) {
     switch (ret) {
-    case cinatra::ws_frame_type::WS_ERROR_FRAME:
+    case tomfox::ws_frame_type::WS_ERROR_FRAME:
       req_.call_event(data_proc_state::data_error);
       close();
       return false;
-    case cinatra::ws_frame_type::WS_OPENING_FRAME:
+    case tomfox::ws_frame_type::WS_OPENING_FRAME:
       break;
-    case cinatra::ws_frame_type::WS_TEXT_FRAME:
-    case cinatra::ws_frame_type::WS_BINARY_FRAME: {
+    case tomfox::ws_frame_type::WS_TEXT_FRAME:
+    case tomfox::ws_frame_type::WS_BINARY_FRAME: {
       reset_timer();
       std::string temp;
       if (!last_ws_str_.empty()) {
@@ -1169,7 +1169,7 @@ private:
     }
     // on message
     break;
-    case cinatra::ws_frame_type::WS_CLOSE_FRAME: {
+    case tomfox::ws_frame_type::WS_CLOSE_FRAME: {
       close_frame close_frame =
           ws_.parse_close_payload(payload.data(), payload.length());
       const int MAX_CLOSE_PAYLOAD = 123;
@@ -1182,11 +1182,11 @@ private:
       auto header = ws_.format_header(close_msg.length(), opcode::close);
       send_msg(std::move(header), std::move(close_msg));
     } break;
-    case cinatra::ws_frame_type::WS_PING_FRAME: {
+    case tomfox::ws_frame_type::WS_PING_FRAME: {
       auto header = ws_.format_header(payload.length(), opcode::pong);
       send_msg(std::move(header), std::move(payload));
     } break;
-    case cinatra::ws_frame_type::WS_PONG_FRAME:
+    case tomfox::ws_frame_type::WS_PONG_FRAME:
       ws_ping();
       break;
     default:
@@ -1419,4 +1419,4 @@ inline constexpr data_proc_state ws_open = data_proc_state::data_begin;
 inline constexpr data_proc_state ws_message = data_proc_state::data_continue;
 inline constexpr data_proc_state ws_close = data_proc_state::data_close;
 inline constexpr data_proc_state ws_error = data_proc_state::data_error;
-} // namespace cinatra
+} // namespace tomfox

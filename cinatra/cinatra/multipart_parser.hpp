@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace cinatra {
+namespace tomfox {
 class multipart_parser {
 public:
   typedef void (*Callback)(const char *buffer, size_t start, size_t end,
@@ -417,5 +417,5 @@ private:
   size_t partDataMark;
   const char *errorReason;
 };
-} // namespace cinatra
+} // namespace tomfox
 #endif /* _MULTIPART_PARSER_H_ */

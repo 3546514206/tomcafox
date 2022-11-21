@@ -2,7 +2,7 @@
 #include "utils.hpp"
 #include <string>
 
-namespace cinatra {
+namespace tomfox {
 class cookie {
 public:
   cookie() = default;
@@ -108,4 +108,4 @@ private:
   std::time_t max_age_ = -1;
   bool http_only_ = false;
 };
-} // namespace cinatra
+} // namespace tomfox

@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 
-namespace cinatra {
+namespace tomfox {
 template <typename... Args> class router {
 public:
   template <http_method... Is, typename Function>
@@ -80,4 +80,4 @@ private:
   typedef std::function<void(Args...)> invoker_function;
   std::map<std::string, invoker_function> map_invokers_;
 };
-} // namespace cinatra
+} // namespace tomfox

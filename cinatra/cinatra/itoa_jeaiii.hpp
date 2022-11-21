@@ -39,7 +39,7 @@ SOFTWARE.
 // number into chucks that can be processed independently try odd digit first
 // try writing 4 chars at a time
 
-namespace cinatra {
+namespace tomfox {
 #if 0
     // 1 char at a time
 
@@ -148,4 +148,4 @@ inline char *i64toa_jeaiii(int64_t i, char *b) {
   uint64_t n = i < 0 ? *b++ = '-', 0 - uint64_t(i) : i;
   return u64toa_jeaiii(n, b);
 }
-} // namespace cinatra
+} // namespace tomfox

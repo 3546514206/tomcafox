@@ -12,7 +12,7 @@ Volker Grabsch (Translation to simpler C++ Code)
 Eugene Hopkinson (Safety improvements)
 Vincent Falco (beast adaptation)
 */
-namespace cinatra {
+namespace tomfox {
 namespace sha1 {
 
 static std::size_t constexpr BLOCK_INTS = 16;
@@ -245,4 +245,4 @@ inline void finish(sha1_context &ctx, void *digest) noexcept {
     d[0] = (ctx.digest[i] >> 24) & 0xff;
   }
 }
-} // namespace cinatra
+} // namespace tomfox

@@ -12,7 +12,7 @@ namespace fs = std::filesystem;
 namespace fs = std::filesystem;
 #endif
 
-namespace cinatra {
+namespace tomfox {
 enum class content_type {
   string,
   multipart,
@@ -41,4 +41,4 @@ const static inline std::string MULTIPART_END =
 
 struct NonSSL {};
 struct SSL {};
-} // namespace cinatra
+} // namespace tomfox
