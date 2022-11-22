@@ -51,6 +51,7 @@ set(tomfox
         tomfox/tomfox/utils.hpp
         tomfox/tomfox/websocket.hpp
         tomfox/tomfox/ws_define.h
+        tomfox/tomfox/nlohmann_json.hpp
         )
 
 

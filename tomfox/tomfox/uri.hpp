@@ -295,12 +295,12 @@ namespace tomfox {
 
         context() = default;
 
-        context(const uri_t &u, http_method mthd)
-                : host(u.get_host()), port(u.get_port()), path(u.get_path()),
-                  query(u.get_query()), method(mthd) {}
+        // 初始化列表
+        context(const uri_t &u, http_method mthd) : host(u.get_host()), port(u.get_port()), path(u.get_path()),
+                                                    query(u.get_query()), method(mthd) {}
 
-        context(const uri_t &u, http_method mthd, std::string b)
-                : host(u.get_host()), port(u.get_port()), path(u.get_path()),
-                  query(u.get_query()), method(mthd), body(std::move(b)) {}
+        context(const uri_t &u, http_method mthd, std::string b) : host(u.get_host()), port(u.get_port()),
+                                                                   path(u.get_path()), query(u.get_query()),
+                                                                   method(mthd), body(std::move(b)) {}
     };
 } // namespace tomfox
