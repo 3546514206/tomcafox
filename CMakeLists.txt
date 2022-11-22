@@ -32,7 +32,6 @@ set(tomfox
         tomfox/tomfox/multipart_parser.hpp
         tomfox/tomfox/multipart_reader.hpp
         tomfox/tomfox/picohttpparser.h
-        tomfox/tomfox/render.h
         tomfox/tomfox/request.hpp
         tomfox/tomfox/response.hpp
         tomfox/tomfox/response_cv.hpp
@@ -52,6 +51,7 @@ set(tomfox
         tomfox/tomfox/websocket.hpp
         tomfox/tomfox/ws_define.h
         tomfox/tomfox/nlohmann_json.hpp
+        tomfox/tomfox/render.h
         )
 
 
