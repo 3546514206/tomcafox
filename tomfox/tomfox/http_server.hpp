@@ -26,6 +26,7 @@ namespace tomfox {
     };
 
     template<typename ScoketType, class service_pool_policy = io_service_pool>
+
     class http_server_ : private noncopyable {
     public:
         using type = ScoketType;
@@ -208,8 +209,7 @@ namespace tomfox {
             return http_cache::get().get_cache_max_age();
         }
 
-        void
-        set_download_check(std::function<bool(request &req, response &res)> checker) {
+        void set_download_check(std::function<bool(request &req, response &res)> checker) {
             download_check_ = std::move(checker);
         }
 
@@ -228,8 +228,7 @@ namespace tomfox {
             not_found_ = std::move(not_found);
         }
 
-        void
-        set_multipart_begin(std::function<void(request &, std::string &)> begin) {
+        void set_multipart_begin(std::function<void(request &, std::string &)> begin) {
             multipart_begin_ = std::move(begin);
         }
 
@@ -410,8 +409,7 @@ namespace tomfox {
 #endif
         }
 
-        void write_chunked_header(request &req, std::shared_ptr<std::ifstream> in,
-                                  std::string_view mime) {
+        void write_chunked_header(request &req, std::shared_ptr<std::ifstream> in, std::string_view mime) {
             auto range_header = req.get_header_value("range");
             req.set_range_flag(!range_header.empty());
             req.set_range_start_pos(range_header);

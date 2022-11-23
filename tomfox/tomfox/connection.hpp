@@ -32,7 +32,7 @@ namespace tomfox {
                        public std::enable_shared_from_this<connection<SocketType>>,
                        private noncopyable {
     public:
-//        这里构造函数的有效参数大于 1 个，其实 explicit 是无效的
+//        这里构造函数的有效参数大于 1 个，其实 explicit 是没必要的，因为大于一个参数的构造函数本来就不支持隐式调用
         explicit connection(
                 boost::asio::io_service &io_service,
                 ssl_configure ssl_conf,
