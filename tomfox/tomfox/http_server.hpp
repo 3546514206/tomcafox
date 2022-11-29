@@ -15,6 +15,10 @@
 #include "session_manager.hpp"
 #include "url_encode_decode.hpp"
 
+#include <spdlog/spdlog.h>
+#include "spdlog/sinks/stdout_color_sinks.h"
+
+
 namespace tomfox {
 
 // cache
@@ -25,11 +29,11 @@ namespace tomfox {
         T value;
     };
 
-    template<typename ScoketType, class service_pool_policy = io_service_pool>
+    template<typename scoket_type, class service_pool_policy = io_service_pool>
 
     class http_server_ : private noncopyable {
     public:
-        using type = ScoketType;
+        using type = scoket_type;
 
         template<class... Args>
         explicit http_server_(Args &&...args): io_service_pool_(std::forward<Args>(args)...) {
@@ -64,11 +68,15 @@ namespace tomfox {
         //		"" : ipv4 & ipv6.
         bool listen(std::string_view address, std::string_view port) {
             if (port_in_use((unsigned short) atoi(port.data()))) {
+                spdlog::get("console")->info(
+                        "套接字监听失败");
                 return false;
             }
 
             boost::asio::ip::tcp::resolver::query query(address.data(), port.data());
             auto[r, err_msg] = listen(query);
+            spdlog::get("console")->info(
+                    "地址=【{}】 端口=【{}】监听成功", address, port);
             return r;
         }
 
@@ -244,14 +252,14 @@ namespace tomfox {
         void set_transfer_type(transfer_type type) { transfer_type_ = type; }
 
         void on_connection(
-                std::function<bool(std::shared_ptr<connection<ScoketType>>)> on_conn) {
+                std::function<bool(std::shared_ptr<connection<scoket_type>>)> on_conn) {
             on_conn_ = std::move(on_conn);
         }
 
     private:
         void start_accept(
                 std::shared_ptr<boost::asio::ip::tcp::acceptor> const &acceptor) {
-            auto new_conn = std::make_shared<connection<ScoketType>>(
+            auto new_conn = std::make_shared<connection<scoket_type>>(
                     io_service_pool_.get_io_service(), ssl_conf_, max_req_buf_size_,
                     keep_alive_timeout_, http_handler_, upload_dir_,
                     upload_check_ ? &upload_check_ : nullptr);
@@ -335,7 +343,7 @@ namespace tomfox {
                                     }
                                 }
 
-                                req.get_conn<ScoketType>()->set_tag(in);
+                                req.get_conn<scoket_type>()->set_tag(in);
 
                                 if (is_small_file(in.get(), req)) {
                                     send_small_file(res, in.get(), mime);
@@ -358,7 +366,7 @@ namespace tomfox {
                             }
                                 break;
                             case tomfox::data_proc_state::data_end: {
-                                auto conn = req.get_conn<ScoketType>();
+                                auto conn = req.get_conn<scoket_type>();
                                 if (!conn->get_keep_alive())
                                     conn->on_close();
                             }
@@ -437,7 +445,7 @@ namespace tomfox {
                         std::to_string(req.get_request_static_file_size() - 1) +
                         std::string("/") + end_str;
             }
-            req.get_conn<ScoketType>()->write_chunked_header(
+            req.get_conn<scoket_type>()->write_chunked_header(
                     std::string_view(res_content_header), req.is_range());
         }
 
@@ -446,7 +454,7 @@ namespace tomfox {
             auto str = get_send_data(req, len);
             auto read_len = str.size();
             bool eof = (read_len == 0 || read_len != len);
-            req.get_conn<ScoketType>()->write_chunked_data(std::move(str), eof);
+            req.get_conn<scoket_type>()->write_chunked_data(std::move(str), eof);
         }
 
         void write_ranges_header(request &req, std::string_view mime,
@@ -459,7 +467,7 @@ namespace tomfox {
             header_str.append("Content-Type: ").append(mime).append("\r\n");
             header_str.append("Content-Length: ");
             header_str.append(file_size).append("\r\n\r\n");
-            req.get_conn<ScoketType>()->write_ranges_header(std::move(header_str));
+            req.get_conn<scoket_type>()->write_ranges_header(std::move(header_str));
         }
 
         void write_ranges_data(request &req) {
@@ -467,11 +475,11 @@ namespace tomfox {
             auto str = get_send_data(req, len);
             auto read_len = str.size();
             bool eof = (read_len == 0 || read_len != len);
-            req.get_conn<ScoketType>()->write_ranges_data(std::move(str), eof);
+            req.get_conn<scoket_type>()->write_ranges_data(std::move(str), eof);
         }
 
         std::string get_send_data(request &req, const size_t len) {
-            auto conn = req.get_conn<ScoketType>();
+            auto conn = req.get_conn<scoket_type>();
             auto in = std::any_cast<std::shared_ptr<std::ifstream>>(conn->get_tag());
             std::string str;
             str.resize(len);
@@ -562,7 +570,7 @@ namespace tomfox {
 
         std::function<void(request &req, response &res)> not_found_ = nullptr;
         std::function<void(request &, std::string &)> multipart_begin_ = nullptr;
-        std::function<bool(std::shared_ptr<connection<ScoketType>>)> on_conn_ =
+        std::function<bool(std::shared_ptr<connection<scoket_type>>)> on_conn_ =
                 nullptr;
 
         size_t max_header_len_;

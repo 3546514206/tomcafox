@@ -6,6 +6,8 @@
 
 #include "./tomfox/tomfox.hpp"
 
+const std::shared_ptr<spdlog::logger> console = spdlog::stdout_color_mt("console");
+
 // 测试 boost 是否安装成功
 void test_boost() {
     std::cout << BOOST_VERSION << std::endl;        //	boost版本号
@@ -37,7 +39,7 @@ void test_start_server() {
 
 int main() {
     // 测试 boost 是否成功安装，CMake 相关配置是否正确
-    test_boost();
+//    test_boost();
     // web 容器测试
     test_start_server();
     return 0;

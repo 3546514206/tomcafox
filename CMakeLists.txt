@@ -9,6 +9,12 @@ find_package(Boost 1.77.0 COMPONENTS system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${BOOST_LIBS_DIR})
 
+# 日志框架 spdlog
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    find_package(spdlog REQUIRED)
+endif()
+
 # tomfox 依赖
 set(tomfox
         tomfox/tomfox.hpp
@@ -56,3 +62,6 @@ set(tomfox
 
 
 add_executable(tomfox main.cpp ${cinatra})
+
+# 链接日志框架
+target_link_libraries(tomfox PRIVATE spdlog::spdlog)

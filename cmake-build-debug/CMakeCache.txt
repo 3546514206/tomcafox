@@ -235,6 +235,12 @@ cinatra_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 cinatra_SOURCE_DIR:STATIC=/Users/setsunayang/Documents/learning/tomfox
 
+//The directory containing a CMake configuration file for fmt.
+fmt_DIR:PATH=/opt/homebrew/lib/cmake/fmt
+
+//The directory containing a CMake configuration file for spdlog.
+spdlog_DIR:PATH=/opt/homebrew/lib/cmake/spdlog
+
 //Value Computed by CMake
 tomfox_BINARY_DIR:STATIC=/Users/setsunayang/Documents/learning/tomfox/cmake-build-debug
 
@@ -319,6 +325,10 @@ CMAKE_GENERATOR_INSTANCE:INTERNAL=
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Test CMAKE_HAVE_LIBC_PTHREAD
+CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
+//Have include pthread.h
+CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/Users/setsunayang/Documents/learning/tomfox
@@ -384,6 +394,8 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
 FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/local/lib/cmake/Boost-1.77.0/BoostConfig.cmake][cfound components: system filesystem ][v1.77.0(1.77.0)]
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: boost_atomic_DIR
 boost_atomic_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_filesystem_DIR
